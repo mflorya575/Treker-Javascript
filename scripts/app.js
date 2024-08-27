@@ -1,23 +1,22 @@
 'use strict';
 
-/* key: 'text', value: { text: 'sdfsdf' } */
+let habbits = [];
+const HABBIT_KEY = 'HABBIT_KEY';
 
-function submitForm() {
-	const input = document.querySelector('.input').value;
-	if (!input) {
-		return;
-	}
-	document.querySelector('.panel').innerText = input;
-	document.querySelector('.input').value = '';
-	document.querySelector('.notification').classList.remove('notification_hidden');
-	const textString = JSON.stringify({
-		text: input
-	});
-	localStorage.setItem('text', textString);
-}
+/* utils */
 
-function inputChanged(e) {
-	if (e.code == 'Enter') {
-		submitForm()
-	}
-}
+function loadData() {
+    const habbitString = localStorage.getItem(HABBIT_KEY);
+    const habbitArray = JSON.parse(habbitString);
+    if (Array.isArray(habbitArray)) {
+        habbits = habbitArray;
+    };
+};
+
+function saveData() {
+    localStorage.getItem(HABBIT_KEY, JSON.stringify(habbits));
+};
+
+(() => {
+    loadData();
+})()
